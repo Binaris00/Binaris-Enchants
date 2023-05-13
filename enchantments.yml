@@ -406,7 +406,7 @@ artificialblood:
   display: '%group-color%Artifial Blood'
   description: |-
     Para la creacion artistica te puede dar un efecto
-    de sangre falsa
+    de sangre falsa.
   applies-to: Armaduras
   type: DEFENSE
   group: 'PRIMITIVE'
@@ -425,11 +425,12 @@ artificialblood:
       effects:
       - BLOOD
 
+# No funciona :c
 pyromaniacchef:
   display: '%group-color%Pyromaniac Chef'
-  descripcion: |-
+  description: |-
     Permite tener una posibilidad de cuando
-    matas animales puedes cocinarlo instantaneamente
+    matas animales puedes cocinarlo instantaneamente.
   applies: Espadas
   type: KILL_MOB
   group: 'PRIMITIVE'
@@ -456,3 +457,60 @@ pyromaniacchef:
         : %allow%'
       effects:
       - SMELT
+
+stonesmelter:
+  display: '%group-color%Stone Smelter'
+  description: |-
+    Cuando minas piedra labrada
+    se cocina automaticamente en piedra.
+  applies: Picos
+  type: MINING
+  group: 'PRIMITIVE'
+  applies:
+  - 'ALL_PICKAXE'
+  levels:
+    '1':
+      effects:
+      - SMELT
+
+minicraftingtable:
+  display: '%group-color%Mini Crafting Table'
+  description: |-
+    Click derecho para abrir la mesa de crafteo
+    El enfriamiento depende del nivel
+  applies: Herramientas+Armas
+  type: RIGHT_CLICK
+  group: 'PRIMITIVE'
+  applies:
+  - 'ALL_PICKAXE'
+  - 'ALL_SWORD'
+  - 'ALL_AXE'
+  - 'ALL_SPADE'
+  levels:
+    '1':
+      cooldown: 60
+      effects:
+      - OPEN_CRAFTING_TABLE
+    '2':
+      cooldown: 50
+      effects:
+      - OPEN_CRAFTING_TABLE
+    '3':
+      cooldown: 40
+      effects:
+      - OPEN_CRAFTING_TABLE
+    '4':
+      cooldown: 30
+      effects:
+      - OPEN_CRAFTING_TABLE
+    '5':
+      cooldown: 20
+      effects:
+      - OPEN_CRAFTING_TABLE
+    '6':
+      cooldown: 10
+      effects:
+      - OPEN_CRAFTING_TABLE
+    '7':
+      effects:
+      - OPEN_CRAFTING_TABLE
