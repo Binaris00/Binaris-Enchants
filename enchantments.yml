@@ -1,0 +1,458 @@
+# << Example configuration >>
+# lastchance:    <-- Enchantment name
+#  display: "%group-color%Last Chance"    <-- Display in item lore
+#  description: "Has a chance to heal when on low hearts"    <-- Enchantment Description
+#  applies-to: "Chestplate"    <-- What applies to (display purposes)
+#  type: "DEFENSE"    <-- Enchantment type (controls when enchantment activates)
+#  group: "COMMON"    <-- Enchantment group (For enchanter and right-click random books)
+#  settings:
+#    required-enchants:
+#      - "springs:1" # Can require specific level
+#      - "gears"
+#    not-applyable-with:
+#      - "frozen"
+#  applies:    <-- List of items that it applies
+#    - ALL_CHESTPLATE    <-- Item(s) list
+#  levels:    < -- All Levels are under here
+#    1:     <-- Level indicator
+#      chance: 30    <-- Chance for enchantment to activate
+#      conditions: "%victim health% > 5 : %stop%"    <-- Condition (read more about it at Conditions)
+#      effects:    <-- All enchantment effects
+#        - "ADD_HEALTH:2 %victim%"    <-- Effect(s) list
+
+#  Display (String) (No spaces or enchantment will break)
+#    Determines how will enchantment look in item lore
+
+#  Applies-to (String)
+#    Display used in Custom Enchantment books for %description% variable
+
+#  Group (Setting)
+#    INFO: Create enchantment groups in config.yml under enchanter configuration.
+#   Enchantment groups are used for enchanter, to sell specific type books. You can group them
+#   and add a group-wide color, then obtain it with variable %group-color% (shown in example enchantments below).
+
+#  Enchantment Types List: https://ae.advancedplugins.net/enchantments/creating-enchantments/type-list
+
+#  Applies (Material)
+#    Determines which items will have the effects
+#    The Latest Materials list: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+#    NOTICE: You can use "LEATHER_ARMOR, IRON_ARMOR, CHAIN_ARMOR, GOLD_ARMOR or DIAMOND_ARMOR" to
+#    instantly add availability for all specific armor type pieces.
+#    Use "ALL_ARMOR" to add all armor pieces.
+#    Use "ALL_HELMET" to add all helmets.
+#    Use "ALL_CHESTPLATE" to add all chestplates.
+#    Use "ALL_BOOTS" to add all boots.
+#    Use "ALL_SWORD" to add all swords.
+#    Use "ALL_PICKAXE" to add all pickaxes.
+#    Use "ALL_AXE" to add all axes.
+#    Use "ALL_EDIBLE" to add all foods.
+#    And so on, but make sure to use non-plural names of items!
+
+#  Levels (Numbers)
+#    Effects for each level, use as display in examples.
+
+#  Enchantment Effect List: https://ae.advancedplugins.net/enchantments/creating-enchantments/effect-list
+
+#        # You can use tags <random word>word1,word2,word3</random word>, it will get a random word from listed words.
+#        # You can use tags <random number>x-y</random number> while x < y, it will generate a random number between two given integers.
+#        # e.g.: "STEAL_MONEY:<random number>10000-50000</random number>"
+#        # Use <chance>x</chance> to set per-effect chance, x being a chance percentage.
+#        # e.g.: "POTION:SPEED:1:100 %attacker% <chance>25</chance>"
+
+#        # You also may use %victim% or %attacker% flag to give effects to different players (in ATTACK, BOW, DEATH, KILL_PLAYER and DEFENSE types).
+#        # Example usage: - "POTION:POISON:1:50 %attacker%', this will give Level 2 POISON potion effect to the player who attacked.
+#        # If none is provided, effects will be given to the player who had custom enchanted item.
+#        # You can add %combo% instead of numbers, to use number of combo's player has (eg. to limit combo number: "%combo% > 0 && %combo% < 5 : %continue%')
+#        # You can add %damage% instead of numbers, to use number of damage has been done (for ATTACK and DEFENSE)
+
+#  Area of effect: https://ae.advancedplugins.net/enchantments/radius-of-effect-enchantments
+#  Conditions:  https://ae.advancedplugins.net/enchantments/enchantment-conditions
+
+# Settings for enchantments
+# *** This is not a required configuration section and each enchantment doesn't need to have it ***
+#  settings:
+#    required-enchants:
+#      - "springs"
+#    not-applyable-with:
+#      - "frozen"
+#    removeable: false # Makes enchantment non-removeable with blackscrolls
+#    disable-in-enchanter: true # Players can no longer obtain enchantment from Enchanter
+#    disabled-worlds: # List worlds in which enchantment will not work (cAsE sEnSiTiVe)
+#      - "My_World"
+bonecrusher:
+  display: '%group-color%Bone Crusher'
+  description: 'Mas daño a Esqueletos, Esqueletos wither.'
+  applies-to: 'Espadas y Hachas'
+  group: 'PRIMITIVE'
+  type: 'ATTACK_MOB'
+  applies:
+    - 'ALL_SWORD'
+    - 'ALL_AXE'
+  levels:
+    '1':
+      chance: 100
+      cooldown: 3
+      conditions:
+      - '%mob type% = SKELETON or %mob type% = WITHER_SKELETON or %mob type% = STRAY or %mob type% = SKELETON_HORSE
+        : %allow%'
+      effects:
+        - INCREASE_DAMAGE:40 @Attacker
+    '2':
+      chance: 100
+      cooldown: 3
+      conditions:
+      - '%mob type% = SKELETON or %mob type% = WITHER_SKELETON or %mob type% = STRAY or %mob type% = SKELETON_HORSE
+        : %allow%'
+      effects:
+        - INCREASE_DAMAGE:60 @Attacker
+    '3':
+      chance: 100
+      cooldown: 3
+      conditions:
+      - '%mob type% = SKELETON or %mob type% = WITHER_SKELETON or %mob type% = STRAY or %mob type% = SKELETON_HORSE
+        : %allow%'
+      effects:
+        - INCREASE_DAMAGE:80 @Attacker
+
+profesionalglazier:
+  display: '%group-color%Professional Glazier'
+  description: 'Probabilidad pequeña de cuando mines arena consigas cristal'
+  applies-to: 'Pala'
+  group: 'PRIMITIVE'
+  type: 'MINING'
+  applies:
+  - 'ALL_SPADE'
+  levels:
+    '1':
+      chance: 100
+      cooldown: 3
+      conditions:
+        - '%block type% != SAND : %stop%'
+        - '%can break% = true : %allow%'
+      effects:
+        - MESSAGE:'AAAAAA'
+        - CONSOLE_COMMAND:'give %attacker name% minecraft:sand 1'
+
+explosivepick:
+  display: '%group-color%Explosive Pickaxe'
+  description: 'Probabilidad pequeña de cuando mines arena consigas cristal'
+  applies-to: 'Picos'
+  type: 'MINING'
+  group: 'LEGEND'
+  applies:
+  - 'ALL_PICKAXE'
+  levels:
+    '1':
+      effects:
+      - BREAK_BLOCK @Trench{r=5}
+
+plantadora:
+  display: '%group-color%Plantadora'
+  description: |-
+    Ayuda a plantar semillas en un area mas amplia
+    puede tener enfriamiento dependiendo el nivel
+    se usa con shift+click derecho.
+  applies-to: Azadas
+  type: RIGHT_CLICK
+  group: PRIMITIVE
+  applies:
+  - ALL_HOE
+  levels:
+    '1':
+      conditions:
+      - '%player is sneaking% = true : %allow%'
+      cooldown: 10
+      effects:
+      - PLANT_SEEDS:2
+    '2':
+      conditions:
+      - '%player is sneaking% = true : %allow%'
+      cooldown: 5
+      effects:
+      - PLANT_SEEDS:2
+    '3':
+      conditions:
+      - '%player is sneaking% = true : %allow%'
+      cooldown: 3
+      effects:
+      - PLANT_SEEDS:3
+
+fakeholymantle:
+  display: '%group-color%Fake Holy Mantle'
+  description: |-
+    Si se esta a punto de romper tu herramienta o armadura
+    tienes una minima probabilidad
+    de reparar la durabilidad 
+  applies-to: Herramientas y Armaduras
+  type: ITEM_BREAK
+  group: PRIMITIVE
+  applies:
+  - 'ALL_ARMOR'
+  - 'ALL_SWORD'
+  - 'ALL_AXE'
+  - 'BOW'
+  - 'ALL_PICKAXE'
+  - 'ALL_SPADE'
+  - 'ALL_HELMET'
+  - 'ALL_CHESTPLATE'
+  - 'ALL_LEGGINGS'
+  - 'ALL_BOOTS'
+  - 'ELYTRA'
+  levels:
+    '1':
+      chance: 5
+      effects:
+      - REMOVE_ENCHANT:fakeholymantle
+      - REPAIR
+      - MESSAGE:§6§l*** §e§ Fake Holy Mantle§6§l***
+    '2':
+      chance: 10
+      effects:
+      - REMOVE_ENCHANT:fakeholymantle
+      - REPAIR
+      - MESSAGE:§6§l*** §e§ Fake Holy Mantle§6§l***
+    '3':
+      chance: 15
+      effects:
+      - REMOVE_ENCHANT:fakeholymantle
+      - REPAIR
+      - MESSAGE:§6§l*** §e§ Fake Holy Mantle§6§l***
+    '4':
+      chance: 20
+      effects:
+      - REMOVE_ENCHANT:fakeholymantle
+      - REPAIR
+      - MESSAGE:§6§l*** §e§ Fake Holy Mantle§6§l***
+
+lightningbody:
+  display: '%group-color%Lightning Body'
+  description: |-
+    Puedes iluminar tu presencia sin importar donde estes
+    te da efecto de glowing permanente
+  applies-to: Armaduras
+  type: 'EFFECT_STATIC'
+  group: 'PRIMITIVE'
+  applies:
+  - 'ALL_ARMOR'
+  - 'ALL_HELMET'
+  - 'ALL_CHESTPLATE'
+  - 'ALL_LEGGINGS'
+  - 'ALL_BOOTS'
+  - 'ELYTRA'
+  levels:
+    '1':
+      effects:
+      - POTION:GLOWING:0
+
+newshovelknight:
+  display: '%group-color%New Shovel knight'
+  description: |-
+    Ahora tienes la capacidad de destruir a todo y a todos, y solo con una pala…
+    Causa una explosion 3x3x3 mientras minas
+  applies-to: Palas
+  type: MINING
+  group: 'LEGEND'
+  applies:
+  - 'ALL_SPADE'
+  levels:
+    '1':
+      effects:
+      - BREAK_BLOCK @Trench{r=3}
+
+telekinesis:
+  display: '%group-color%Telekinesis'
+  description: |-
+    Con poderes psiquicos de primer nivel puedes
+    teletransportar bloques a tu inventario
+    al maximo nivel puede funcionar el 50% de las veces
+  applies-to: Herramientas
+  type: MINING
+  group: 'PRIMITIVE'
+  applies:
+  - 'ALL_AXE'
+  - 'ALL_PICKAXE'
+  - 'ALL_SPADE'
+  levels:
+    '1':
+      chance: 10
+      effects:
+      - TP_DROPS
+    '2':
+      chance: 20
+      effects:
+      - TP_DROPS
+    '3':
+      chance: 30
+      effects:
+      - TP_DROPS
+    '4':
+      chance: 40
+      effects:
+      - TP_DROPS
+    '5':
+      chance: 50
+      effects:
+      - TP_DROPS
+
+piglin_slayer:
+  display: '%group-color%Piglin Slayer'
+  description: |-
+    Permite hacer daño a casi todas las especies del nether
+    piglins y demas
+    applies-to: Armas
+  type: ATTACK_MOB
+  group: 'PRIMITIVE'
+  applies:
+  - 'ALL_SWORD'
+  - 'ALL_AXE'
+  levels:
+    '1':
+      chance: 45
+      cooldown: 3
+      conditions:
+      - '%mob type% = PIGLIN or %mob type% = ZOMBIFIED_PIGLIN  or %mob type% = PIGLIN_BRUTE
+        : %allow%'
+      effects:
+      - INCREASE_DAMAGE:40 @Attacker
+    '2':
+      chance: 70
+      cooldown: 3
+      conditions:
+      - '%mob type% = PIGLIN or %mob type% = ZOMBIFIED_PIGLIN  or %mob type% = PIGLIN_BRUTE
+        : %allow%'
+      effects:
+      - INCREASE_DAMAGE:60 @Attacker
+    '3':
+      chance: 
+      cooldown: 3
+      conditions:
+      - '%mob type% = PIGLIN or %mob type% = ZOMBIFIED_PIGLIN or %mob type% = PIGLIN_BRUTE
+        : %allow%'
+      effects:
+      - INCREASE_DAMAGE:80 @Attacker
+
+blazefarmer:
+  display: '%group-color%Blaze Farmer'
+  description: |-
+    Te hiciste enemigo de los blazes
+    y ahora armas una forma de ir en contra de ellos
+  applies-to: Armas
+  type: 'ATTACK_MOB'
+  group: 'PRIMITIVE'
+  applies:
+  - 'ALL_SWORD'
+  - 'ALL_AXE'
+  levels:
+    '1':
+      chance: 50
+      conditions:
+      - '%mob type% = BLAZE: %allow%'
+      effects:
+        - INCREASE_DAMAGE:80 @Attacker
+    '2':
+      chance: 60
+      conditions:
+      - '%mob type% = BLAZE: %allow%'
+      effects:
+        - INCREASE_DAMAGE:80 @Attacker
+    '3':
+      chance: 70
+      conditions:
+      - '%mob type% = BLAZE: %allow%'
+      effects:
+        - INCREASE_DAMAGE:80 @Attacker
+    '4':
+      chance: 80
+      conditions:
+      - '%mob type% = BLAZE: %allow%'
+      effects:
+        - INCREASE_DAMAGE:80 @Attacker
+    '5':
+      chance: 90
+      conditions:
+      - '%mob type% = BLAZE: %allow%'
+      effects:
+        - INCREASE_DAMAGE:80 @Attacker
+    '6':
+      conditions:
+      - '%mob type% = BLAZE: %allow%'
+      effects:
+        - INCREASE_DAMAGE:80 @Attacker
+
+robustsword:
+  display: '%group-color%Robust Sword'
+  description: |-
+    Mejora la espada para que dure mas en batalla
+  applies-to: Espadas
+  type: ATTACK;ATTACK_MOB
+  group: 'PRIMITIVE'
+  applies:
+  - 'ALL_SWORD'
+  levels:
+    '1':
+      chance: 20
+      effects:
+      - ADD_DURABILITY_ITEM:-1
+    '2':
+      chance: 30
+      effects:
+      - ADD_DURABILITY_ITEM:-1
+    '3':
+      chance: 30
+      effects:
+      - ADD_DURABILITY_ITEM:-1
+
+artificialblood:
+  display: '%group-color%Artifial Blood'
+  description: |-
+    Para la creacion artistica te puede dar un efecto
+    de sangre falsa
+  applies-to: Armaduras
+  type: DEFENSE
+  group: 'PRIMITIVE'
+  applies:
+  - 'ALL_ARMOR'
+  levels:
+    '1':
+      chance: 30
+      effects:
+      - BLOOD
+    '2':
+      chance: 60
+      effects:
+      - BLOOD
+    '3':
+      effects:
+      - BLOOD
+
+pyromaniacchef:
+  display: '%group-color%Pyromaniac Chef'
+  descripcion: |-
+    Permite tener una posibilidad de cuando
+    matas animales puedes cocinarlo instantaneamente
+  applies: Espadas
+  type: KILL_MOB
+  group: 'PRIMITIVE'
+  applies:
+  - 'ALL_SWORD'
+  levels:
+    '1':
+      chance: 30
+      conditions:
+      - '%mob type% = SHEEP or %mob type% = PIG or %mob type% = COW
+        : %allow%'
+      effects:
+      - SMELT
+    '2':
+      chance: 60
+      conditions:
+      - '%mob type% = SHEEP or %mob type% = PIG or %mob type% = COW
+        : %allow%'
+      effects:
+      - SMELT
+    '3':
+      conditions:
+      - '%mob type% = SHEEP or %mob type% = PIG or %mob type% = COW
+        : %allow%'
+      effects:
+      - SMELT
