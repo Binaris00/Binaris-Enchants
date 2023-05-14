@@ -66,13 +66,13 @@ groups:
       chance: 22
 
   SOUL:
-    global-color: "{#962620}"
+    global-color: "{#570505}"
     group-name: "Soul"
     item:
       type: FIREWORK_CHARGE
       id: 0
       custom-model-data: 0
-      rgb-color: 150;38;32
+      rgb-color: 87;5;5
     slot-increaser:
       slots: 1
       custom-model-data: 0
