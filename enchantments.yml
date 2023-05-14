@@ -1,24 +1,3 @@
-#<enchantment_name>:
-#  display: "<enchantment_display>"
-#  description: "<enchantment_description>"
-#  applies-to: "<applies_to>"
-#  triggers: "<triggers>"
-#  group: "<group>"
-#  applies:
-#    - <material>
-#  settings:
-#    <setting>: <value>
-#  levels:
-#    <level_number>:
-#      cooldown: <number>
-#      chance: <number>
-#      conditions:
-#        - "<condition>"
-#      effects:
-#        - "<effects>"
-
-
-
 ################################################################
 # Primitive Enchants
 #
@@ -529,13 +508,15 @@ carrotplanter:
 basicsmelter:
   display: "%group-color%Basic Smelter"
   description: |-
-    Quema los materiales instantaneamente
+    Probabilidad de que
+    queme los materiales instantaneamente
     cuando los minas.
-  applies-to: Picos, Azadas
+  applies-to: Picos y Palas
+  type: MINING
   group: "PRIMITIVE"
   applies:
-    - ALL_HOE
-    - ALL_PICKAXE
+  - ALL_SPADE
+  - ALL_PICKAXE
   levels:
     '1':
       chance: 20
@@ -563,9 +544,265 @@ basicsmelter:
 #
 #
 ################################################################
+incendiaryaxe:
+  display: "%group-color%Incendiary Axe"
+  description: |-
+    Quema a tus enemigos por un
+    corto periodo de tiempo, perfecto
+    para un buen asado.
+  applies-to: Hachas
+  type: ATTACK;ATTACK_MOB
+  group: ELEMENTAL
+  applies:
+    - ALL_AXE
+  levels:
+    '1':
+      cooldown: 10
+      effects:
+        - BURN:5 @Victim
+    '2':
+      cooldown: 5
+      effects:
+        - BURN:5 @Victim
 
 
+################################################################
+# Soul Enchants
+#
+#
+################################################################
+soulstealer:
+  display: '%group-color%Soul Stealer'
+  description: |-
+    Robas una cierta cantidad de almas de tus asesinatos
+    dependiendo el nivel del encantamiento
+    Incompatible con Soul Grind
+  applies-to: Espadas
+  type: KILL_PLAYER
+  group: SOUL
+  applies:
+    - ALL_SWORD
+  settings:
+    not-applyable-with:
+      - 'soulgrind'
+  levels:
+    '1':
+      cooldown: 200
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '2':
+      cooldown: 200
+      effects:
+        - ADD_SOULS:2
+        - PARTICLE:HEART:2:0
+    '3':
+      cooldown: 200    
+      effects:
+        - ADD_SOULS:3
+        - PARTICLE:HEART:3:0
+    '4':
+      cooldown: 200
+      effects:
+        - ADD_SOULS:4
+        - PARTICLE:HEART:4:0
+    '5':
+      cooldown: 200
+      effects:
+        - ADD_SOULS:5
+        - PARTICLE:HEART:5:0
 
+soulgrind:
+  display: '%group-color%Soul Grind'
+  description: |-
+    Posibilidad de que cuando mates mobs
+    Te den un alma.
+    Incompatible con Soul Stealer
+  applies-to: Espadas
+  type: KILL_MOB
+  group: SOUL
+  applies:
+    - ALL_SWORD
+  settings:
+    not-applyable-with:
+      - 'soulstealer'
+  levels:
+    '1':
+      chance: 5
+      cooldown: 10
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '2':
+      chance: 10
+      cooldown: 10
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '3':
+      chance: 15
+      cooldown: 10
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '4':
+      chance: 20
+      cooldown: 10
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '5':
+      chance: 25
+      cooldown: 10
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '6':
+      chance: 30
+      cooldown: 10
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '7':
+      chance: 35
+      cooldown: 10
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '8':
+      chance: 40
+      cooldown: 10
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+
+
+axeofspirits:
+  display: '%group-color%Axe of Spirits'
+  description: |-
+    Robas una cierta cantidad de almas de tus asesinatos
+    dependiendo el nivel del encantamiento
+    Incompatible con Axe of Souls
+  applies-to: Hachas
+  type: KILL_PLAYER
+  group: SOUL
+  applies:
+    - ALL_AXE
+  settings:
+    not-applyable-with:
+      - 'axeofsoul'
+  levels:
+    '1':
+      cooldown: 200
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '2':
+      cooldown: 200
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '3':
+      cooldown: 200
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+
+axeofsoul:
+  display: '%group-color%Axe of Souls'
+  description: |-
+    Robas una cierta cantidad de almas de tus asesinatos
+    dependiendo el nivel del encantamiento
+    Incompatible con Axe of Spirits
+  applies-to: Hachas
+  type: KILL_MOB
+  group: SOUL
+  applies:
+    - ALL_AXE
+  settings:
+    not-applyable-with:
+      - 'axeofspirits'
+  levels:
+    '1':
+      chance: 5
+      cooldown: 10
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '2':
+      chance: 10
+      cooldown: 10
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '3':
+      chance: 15
+      cooldown: 10
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '4':
+      chance: 20
+      cooldown: 10
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '5':
+      chance: 25
+      cooldown: 10
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '6':
+      chance: 30
+      cooldown: 10
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '7':
+      chance: 35
+      cooldown: 10
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '8':
+      chance: 40
+      cooldown: 10
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+
+
+soulminer:
+  display: '%group-color%Soulminer'
+  description: |-
+    Minima posibilidad de poder
+    conseguir una pequeña cantidad
+    de almas.
+  applies-to: Picos
+  type: MINING
+  group: SOUL
+  applies:
+    - ALL_PICKAXE
+  levels:
+    '1':
+      chance: 5
+      cooldown: 5
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '2':
+      chance: 10
+      cooldown: 5
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
+    '3':
+      chance: 15
+      cooldown: 5
+      effects:
+        - ADD_SOULS:1
+        - PARTICLE:HEART:1:0
 
 
 ################################################################
